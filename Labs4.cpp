@@ -131,41 +131,45 @@ class Matrix3x3{
 class MatrixXnX{
     public:
     const int minVal = -10, maxVal = 10;
-    MatrixXnX() {}
-
 
     MatrixXnX(const int iDim){
-        p = iDim;
+        this->p = iDim;
+        //p = iDim;
         nums = new int* [p];
         for (int i = 0; i < p; i++){
             nums[i] = new int[p];
-            for (int j = 0; j<p; j++){
+            for (int j = 0; j<p; j++)
                 nums[i][j] = 0;
-            }
         }
     }
 
-    int element(int i, int j){
+    ~MatrixXnX(){
+        for (int i = 0; i < p; i++)
+            delete[] nums[i];
+        delete[] nums;
+    }
+
+    const int element(const int i, const int j){
         return nums[i][j];
     }
 
-    void setElement(int i, int j, int value){
+    void setElement(const int i, const int j, const int value){
         nums[i][j] = value;
     }
 
-    void fillRandomElements(int minVal, int maxVal){
-        cout << endl << "new matrix";
+    void fillRandomElements(const int minVal, const int maxVal){
+        cout << endl << "new matrix" << endl;
         srand(time(NULL));
         for (int i = 0; i<p; i++){
             for (int j = 0; j<p; j++){
-                setElement(i,j,rand() % maxVal + minVal);
+                setElement(i,j,rand() % (maxVal*2) + minVal);
                 cout << element(i,j) << " ";
             }
             cout << endl;
         }
     }
 
-    int sumPrincipalDiag(){
+    const int sumPrincipalDiag(){
         int sum = 0;
         for (int i = 0; i < p; i++)
             sum += nums[i][i];
@@ -173,7 +177,7 @@ class MatrixXnX{
         return sum;
     }
 
-    int sumSecondaryDiag(){
+    const int sumSecondaryDiag(){
         int sum = 0;
         for (int i = 0; i < p; i++)
             sum += nums[i][p-1-i];
@@ -181,7 +185,7 @@ class MatrixXnX{
         return sum;
     }
 
-    int productPrincipalDiag(){
+    const int productPrincipalDiag(){
         int prod = 1;
         for (int i = 0; i < p; i++)
             for (int j = 0; j < p; j++)
@@ -191,7 +195,7 @@ class MatrixXnX{
         return prod;
     }
 
-    int productSecondaryDiag() {
+    const int productSecondaryDiag() {
         int prod = 1;
         for (int i = 0; i < p; i++)
             for (int j = 0; j < p; j++)
@@ -201,7 +205,7 @@ class MatrixXnX{
         return prod;
     }
 
-    int sumRow(const int iRow){
+    const int sumRow(const int iRow){
         int sum = 0;
         for (int i = 0; i<p; i++)
             sum += nums[iRow][i];
@@ -209,7 +213,7 @@ class MatrixXnX{
         return sum;
     }
 
-    int minColumn(const int iCol){
+    const int minColumn(const int iCol){
         int min = maxVal;
         for (int i = 0; i<p; i++)
             if (nums[i][iCol] <= min)
@@ -218,7 +222,7 @@ class MatrixXnX{
         return min;
     }
 
-    int maxColumn(const int iCol){
+    const int maxColumn(const int iCol){
         int max = minVal;
         for (int i = 0; i<p; i++)
             if (nums[i][iCol] >= max)
@@ -245,10 +249,8 @@ int main(){
     cout << m.sumRow(2);
     cout << m.minColumn(1);
     cout << m.maxColumn(0);
-    //int a;
-    //cin >> a;
-    //const int dm = a;
-    MatrixXnX n;
+
+    MatrixXnX n(6);
     n.maxVal;
     n.minVal;
     n.fillRandomElements(n.minVal, n.maxVal);
