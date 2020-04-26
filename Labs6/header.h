@@ -92,3 +92,32 @@ void nonRecursionQuickSort(int *array, int left, int right){
 }
 
 //3
+int recursionBSearch(int* array, int left, int right, int value){
+    int midIndex = (left+right)/2;
+    int bearing = array[midIndex];
+    if (bearing == value)
+        return midIndex;
+    if (left > right){
+        std::cout <<"value not found" << std::endl;
+        return -1;
+    }
+    if (bearing < value)
+        recursionBSearch(array, midIndex+1, right, value);
+    else if (bearing > value)
+        recursionBSearch(array, left, midIndex-1, value);
+}
+
+int nonRecursionBSearch(int* array, int left, int right, int value){
+    while(left <= right){
+        int midIndex = (right+left)/2;
+        int bearing = array[midIndex];
+        if (value == bearing)
+            return midIndex;
+        else if (value<bearing)
+            right = midIndex-1;
+        else if (value > bearing)
+            left = midIndex+1;
+    }
+    std::cout <<"value not found" << std::endl;
+    return -1;
+}
