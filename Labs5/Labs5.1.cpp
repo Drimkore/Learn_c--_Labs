@@ -21,106 +21,156 @@
 
 using namespace std;
 
-template <typename T>
+template<typename T>
 class  TreeNode
 {
     private:
-    int* value;
+    T value;
     TreeNode* leftNode;
     TreeNode* rightNode;
-    TreeNode* parent;
 
     public:
-    TreeNode(){
+    TreeNode() {
+        value = T();
         leftNode = nullptr;
         rightNode = nullptr;
-        parent = nullptr;
     }
 
-    int getLeftNode(TreeNode *node){
-        return *value;
+    T getNodeValue() {
+        return value;
     }
 
-    void setLeftNode(int value, TreeNode *node){
-        node->leftNode = value;
+    TreeNode<T>* getLeftNode() {
+        return leftNode;
     }
 
-    int getRightNode(TreeNode *node){
-        return *value;
+    TreeNode<T>* getRightNode() {
+        return rightNode;
     }
 
-    void setRightNode(int value, TreeNode *node){
-        node->rightNode = value;
+    void setNodeValue(int num) {
+        value = num;
     }
 
-    int getParent(TreeNode *node){
-        return *value;
+    T getLeftNodeValue() {
+        return leftNode->value;
     }
 
-    void setParent(int value, TreeNode *node){
-        node->parent = value;
+    void setLeftNode(int value) {
+        leftNode->value = value;
+    }
+
+    T getRightNodeValue() {
+        return rightNode->value;
+    }
+
+    void setRightNode(int value) {
+        rightNode->value = value;
     }
 };
 
-template <typename T>
+template<typename T>
 class BinaryTree{
     private:
+    TreeNode<T> *root;
+    BinaryTree* tree;
+
+    //TODO Не работает при условном выражении
+    void Insert(int value, TreeNode<T> *node) {
+        if (node->getNodeValue() > value){
+            if (node->getRightNode() != nullptr) {
+                Insert(value, node->getRightNode());
+            }
+            else {
+                node->setRightNode(value);
+            }
+        }
+        else if (node->getNodeValue() < value) {
+            if (node->getLeftNode() != nullptr) {
+                Insert(value, node->getLeftNode());
+            }
+            else {
+                node->setLeftNode(value);
+            }
+        }
+
+        /*if (node == nullptr){
+            node->setNodeValue(value, node);
+            node->setLeftNode(NULL, node);
+            node->setRightNode(NULL, node);
+        }
+        else{
+            if (value < node->getNodeValue()){
+                Insert(value, node->getLeftNode());
+            }
+            if (value > node->getNodeValue())
+                Insert(value, node->getRightNode());
+        }*/
+    }
+
+    int Search(int value, TreeNode<T> *node) {
+        if (node->getNodeValue() > value) {
+            node = node->getLeftNode();
+            Search(value);
+        }
+        if (node->getNodeValue() < value) {
+            node = node->getRightNode();
+            Search(value);
+        }
+        if (node->getNodeValue() == value) {
+            return node->getNodeValue();
+        }
+    }
+
+    void treeprint(TreeNode<T> *node) {
+        if(node != nullptr) {
+        treeprint(node->getLeftNode());
+        cout << node->getNodeValue();
+        treeprint(node->getRightNode());
+        }
+    }
+
     public:
-    BinaryTree(){
-        TreeNode *node;
+    BinaryTree() {
+        TreeNode<T> *root = nullptr;
     };
     ~BinaryTree();
 
-    void Insert(int value){
-        if (node == nullptr){
-            node = new TreeNode();
-            node->parent = value;
-            node->leftNode = nullptr;
-            node->rightNode = nullptr;
+    void Insert(int value) {
+        if (root != nullptr) {
+            Insert(value, root);
         }
-        else{
-            if (value < node->parent){
-                node->leftNode = Insert(value, node->leftNode);
-            }
-            if (value > node->parent)
-                node->rightNode = Insert(value, node->rightNode);
+        else {
+            root->setNodeValue(value);
+		    //root->setLeftNode(NULL);
+		    //root->setRightNode(NULL);
         }
     }
 
-    int Search(int value){
-        if (node>value){
-            node = node->leftNode;
-            Search(value);
-        }
-        if (node<value){
-            node = node->rightNode;
-            Search(value);
-        }
-        if (node == value){
-            return *node;
-        }
+    int Search(int value) {
+        return Search(value, root);
     }
 
     void treeprint() {
-        if(node != nullptr) {
-        treeprint(node->left);
-        cout << node;
-        treeprint(node->right);
-        }
+        treeprint(root);
     }
 };
 
-
-
-template<typename T>
 int main(){
-    BinaryTree tree;
-    tree.Insert(4);
-    tree.Insert(2);
-    tree.Insert(6);
-    tree.Insert(8);
-    tree.Insert(3);
-    tree.treeprint();
+    BinaryTree<int> *tree = new BinaryTree<int>;
+
+    tree->treeprint();
+
+    tree->Insert(1);
+    tree->Insert(4);
+    tree->Insert(2);
+    tree->Insert(6);
+    tree->Insert(8);
+    tree->Insert(3);
+
+    tree->Search(3);
+
+    tree->treeprint();
 
 
 
