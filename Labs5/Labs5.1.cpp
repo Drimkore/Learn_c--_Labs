@@ -36,6 +36,7 @@ class  TreeNode
         rightNode = nullptr;
     }
 
+    //TODO Segmentation fault при сравнении с value
     T getNodeValue() {
         return value;
     }
@@ -56,7 +57,7 @@ class  TreeNode
         return leftNode->value;
     }
 
-    void setLeftNode(int value) {
+    void setLeftNode(TreeNode<T>* node) {
         leftNode->value = value;
     }
 
@@ -64,7 +65,7 @@ class  TreeNode
         return rightNode->value;
     }
 
-    void setRightNode(int value) {
+    void setRightNode(TreeNode<T>* node) {
         rightNode->value = value;
     }
 };
@@ -77,12 +78,13 @@ class BinaryTree{
 
     //TODO Не работает при условном выражении
     void Insert(int value, TreeNode<T> *node) {
-        if (node->getNodeValue() > value){
+        if (node->getNodeValue() > value) {
             if (node->getRightNode() != nullptr) {
                 Insert(value, node->getRightNode());
             }
             else {
-                node->setRightNode(value);
+                TreeNode<T>* newNode = new TreeNode<T>;
+                node->setRightNode(newNode);
             }
         }
         else if (node->getNodeValue() < value) {
@@ -90,7 +92,8 @@ class BinaryTree{
                 Insert(value, node->getLeftNode());
             }
             else {
-                node->setLeftNode(value);
+                TreeNode<T>* newNode = new TreeNode<T>;
+                node->setLeftNode(newNode);
             }
         }
 
@@ -136,12 +139,15 @@ class BinaryTree{
     };
     ~BinaryTree();
 
+    //TODO Тут что-то не так.(при root = nullptr срабатывает первое условие)
     void Insert(int value) {
         if (root != nullptr) {
             Insert(value, root);
         }
         else {
-            root->setNodeValue(value);
+            TreeNode<T>* newNode = new TreeNode<T>;
+            newNode->setNodeValue(value);
+            root = newNode;
 		    //root->setLeftNode(NULL);
 		    //root->setRightNode(NULL);
         }
@@ -156,10 +162,10 @@ class BinaryTree{
     }
 };
 
-int main(){
+int main() {
     BinaryTree<int> *tree = new BinaryTree<int>;
 
-    tree->treeprint();
+    //tree->treeprint();
 
     tree->Insert(1);
     tree->Insert(4);
