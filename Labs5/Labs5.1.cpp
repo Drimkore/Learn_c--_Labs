@@ -36,7 +36,6 @@ class  TreeNode
         rightNode = nullptr;
     }
 
-    //TODO Segmentation fault при сравнении с value
     T getNodeValue() {
         return value;
     }
@@ -58,6 +57,10 @@ class  TreeNode
     }
 
     void setLeftNode(TreeNode<T>* node) {
+        leftNode = node;
+    }
+
+    void setLeftNodeValue(T value) {
         leftNode->value = value;
     }
 
@@ -66,6 +69,10 @@ class  TreeNode
     }
 
     void setRightNode(TreeNode<T>* node) {
+        rightNode = node;
+    }
+
+    void setRightNodeValue(T value) {
         rightNode->value = value;
     }
 };
@@ -73,73 +80,63 @@ class  TreeNode
 template<typename T>
 class BinaryTree{
     private:
-    TreeNode<T> *root;
+    TreeNode<T>* root;
     BinaryTree* tree;
 
-    //TODO Не работает при условном выражении
     void Insert(int value, TreeNode<T> *node) {
-        if (node->getNodeValue() > value) {
+        if (node->getNodeValue() < value) {
             if (node->getRightNode() != nullptr) {
                 Insert(value, node->getRightNode());
             }
             else {
                 TreeNode<T>* newNode = new TreeNode<T>;
                 node->setRightNode(newNode);
+                node->setRightNodeValue(value);
             }
         }
-        else if (node->getNodeValue() < value) {
+        else if (node->getNodeValue() > value) {
             if (node->getLeftNode() != nullptr) {
                 Insert(value, node->getLeftNode());
             }
             else {
                 TreeNode<T>* newNode = new TreeNode<T>;
                 node->setLeftNode(newNode);
+                node->setLeftNodeValue(value);
             }
         }
-
-        /*if (node == nullptr){
-            node->setNodeValue(value, node);
-            node->setLeftNode(NULL, node);
-            node->setRightNode(NULL, node);
-        }
-        else{
-            if (value < node->getNodeValue()){
-                Insert(value, node->getLeftNode());
-            }
-            if (value > node->getNodeValue())
-                Insert(value, node->getRightNode());
-        }*/
     }
 
-    int Search(int value, TreeNode<T> *node) {
+    TreeNode<T>* Search(int value, TreeNode<T> *node) {
         if (node->getNodeValue() > value) {
             node = node->getLeftNode();
-            Search(value);
+            Search(value, node);
         }
-        if (node->getNodeValue() < value) {
+        else if (node->getNodeValue() < value) {
             node = node->getRightNode();
-            Search(value);
+            Search(value, node);
         }
-        if (node->getNodeValue() == value) {
-            return node->getNodeValue();
+        else if (node->getNodeValue() == value) {
+            return node;
+        }
+        else {
+            return nullptr;
         }
     }
-
-    void treeprint(TreeNode<T> *node) {
+    //метод выводил значения всех узлов дерева(использовался для проверки)
+    /*void treeprint(TreeNode<T> *node) {
         if(node != nullptr) {
         treeprint(node->getLeftNode());
         cout << node->getNodeValue();
         treeprint(node->getRightNode());
         }
-    }
+    }*/
 
     public:
     BinaryTree() {
-        TreeNode<T> *root = nullptr;
+        root = nullptr;
     };
     ~BinaryTree();
 
-    //TODO Тут что-то не так.(при root = nullptr срабатывает первое условие)
     void Insert(int value) {
         if (root != nullptr) {
             Insert(value, root);
@@ -148,24 +145,20 @@ class BinaryTree{
             TreeNode<T>* newNode = new TreeNode<T>;
             newNode->setNodeValue(value);
             root = newNode;
-		    //root->setLeftNode(NULL);
-		    //root->setRightNode(NULL);
         }
     }
 
-    int Search(int value) {
+    TreeNode<T>* Search(int value) {
         return Search(value, root);
     }
-
+    /*
     void treeprint() {
         treeprint(root);
-    }
+    }*/
 };
 
 int main() {
     BinaryTree<int> *tree = new BinaryTree<int>;
-
-    //tree->treeprint();
 
     tree->Insert(1);
     tree->Insert(4);
@@ -174,13 +167,6 @@ int main() {
     tree->Insert(8);
     tree->Insert(3);
 
-    tree->Search(3);
-
-    tree->treeprint();
-
-
-
-
-    cout << "hello world";
+    cout << endl << tree->Search(6) << endl;
     return 0;
 }
