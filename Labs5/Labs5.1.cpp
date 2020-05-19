@@ -107,16 +107,18 @@ class BinaryTree{
     }
 
     TreeNode<T>* Search(int value, TreeNode<T> *node) {
-        if (node->getNodeValue() > value) {
-            node = node->getLeftNode();
-            Search(value, node);
-        }
-        else if (node->getNodeValue() < value) {
-            node = node->getRightNode();
-            Search(value, node);
-        }
-        else if (node->getNodeValue() == value) {
-            return node;
+        if (node != nullptr){
+            if (node->getNodeValue() > value) {
+                node = node->getLeftNode();
+                Search(value, node);
+            }
+            else if (node->getNodeValue() < value) {
+                node = node->getRightNode();
+                Search(value, node);
+            }
+            else if (node->getNodeValue() == value) {
+                return node;
+            }
         }
         else {
             return nullptr;
@@ -167,6 +169,6 @@ int main() {
     tree->Insert(8);
     tree->Insert(3);
 
-    cout << endl << tree->Search(6) << endl;
+    cout << endl << tree->Search(1) << endl;
     return 0;
 }
