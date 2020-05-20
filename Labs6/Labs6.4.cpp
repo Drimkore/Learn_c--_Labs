@@ -7,28 +7,30 @@
 #include "header.h"
 #include <time.h>
 #include <windows.h>
+#include <chrono>
 
 using namespace std;
 
 int main() {
-    cout.precision (9);
-    int len = 1000;
+    int len = 10000;
     int *array = new int[len];
     srand(time(NULL));
     for (int i = 0; i<len; i++) {
         array[i] = rand() % 2001 -1000;
     }
     // Для неотсортированного
-    long double beginFirts = clock();
+    auto beginFirst = chrono::steady_clock::now();
     Search(len, 100, array);
-    long double endFirst = clock();
-    cout << "No Sort" << endl << (endFirst - beginFirts)/CLK_TCK << endl;
+    auto endFirst = chrono::steady_clock::now();
+    auto timeFirst = chrono::duration_cast<chrono::nanoseconds>(endFirst - beginFirst);
+    cout << "Поиск в неотсортированном массиве занял " <<timeFirst.count() << " нс" << endl;
 
     recursionQuickSort(array, 0, len-1);
     // Для отсортированного
-    long double beginSecond = clock();
+    auto beginSecond = chrono::steady_clock::now();
     recursionBSearch(array, 0, len-1, 100);
-    long double endSecond = clock();
-    cout << "Sort" << endl << (endSecond - beginSecond)/CLK_TCK << endl;
+    auto endSecond = chrono::steady_clock::now();
+    auto timeSecond = chrono::duration_cast<chrono::nanoseconds>(endSecond - beginSecond);
+    cout << "Поиск в отсортированном массиве занял " << timeSecond.count() << " нс" << endl;
     return 0;
 }
