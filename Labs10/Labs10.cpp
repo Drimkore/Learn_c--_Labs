@@ -36,8 +36,11 @@
     *
 */
 #include <iostream>
+#include "MatrixBase.h"
 
 using namespace std;
+
+
 
 int main()
 {
