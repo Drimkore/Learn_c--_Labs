@@ -10,200 +10,155 @@ using namespace std;
 
 // Реализуем связный список
 template<typename T>
-class LinkedList{
-public:
-    LinkedList();
-    ~LinkedList();
-
-    //Добавление значений в начало списка
-    void push_front (T data);
-
-    //Добавление значений в конец списка
-    void push_back(T data);
-
-    //Получение размера списка
-    int getSize() {return Size;}
-
-    //Возврат элемента списка
-    T& operator[](const int index);
-
-    //Удаление первого элемента
-    void pop_front();
-
-    //Удаление последнего элемента
-    void pop_back();
-
-    //Очистка всего списка
-    void clear();
-
-    //Вставка значений в список
-    void insert(T data, int index);
-
-    //Удаление элемента из списка
-    void removeAt(int index);
-
-    // 2
-    void duplicateDelete();
-
-private:
-    template<typename Y>
-    class Node{
-        public:
-        Node *pointNext;
-        Y data;
-
-        Node(Y date = Y(), Node *pointNext = nullptr){
-            this->data = data;
-            this->pointNext = pointNext;
-        }
-
-    };
-
-    int Size;
-    Node<T> *head;
+class Node {
+    public:
+        T data;
+        Node* next;
 };
 
 template<typename T>
-LinkedList<T>::LinkedList(){
-    Size = 0;
-    head = nullptr;
-}
+class LinkedList {
+    public:
+        int len;
+        Node<T>* head;
 
-template<typename T>
-LinkedList<T>::~LinkedList(){
-}
-
-template<typename T>
-void LinkedList<T>::push_front(T data){
-    head = new Node<T>(data, head);
-    Size++;
-}
-
-template<typename T>
-void LinkedList<T>::push_back(T data){
-    if (head == nullptr){
-        head = new Node<T>(data);
-    }
-    else{
-        Node<T> *current = this->head;
-        while (current->pointNext != nullptr){
-            current = current->pointNext;
+        LinkedList() {
+            len = 0;
+            head = nullptr;
         }
-        current->pointNext = new Node<T>(data);
-    }
-    Size++;
-}
+        ~LinkedList();
 
-template<typename T>
-T& LinkedList<T>::operator[](const int index){
-    Node<T> *current = this->head;
-    int counter = 0;
-    while (current != nullptr){
-        if (counter == index){
-            return current ->data;
+        //Добавление значения в список (в начало)
+        void push(T data) {
+            Node<T>* node = new Node<T>;
+            node->data = data;
+            node->next = head;
+            head = node;
+            len++;
         }
-        current = current->pointNext;
-        counter++;
-    }
-}
 
-template<typename T>
-void LinkedList<T>::pop_front(){
-    Node<T> *temp = head;
-    head = head->pointNext;
-    delete temp;
-    Size--;
-}
+        //Добавление  значения в список (в конец)
+        void push_back(T data){
+            if (head == nullptr) {
+                head = new Node<T>(data);
+            }
+            else {
+                Node<T>* current = head;
+                while (current->next != nullptr) {
+                    current = current->next;
+                }
+                current->next = new Node<T>(data);
+            }
+            len++;
+        }
 
-template<typename T>
-void LinkedList<T>::pop_back(){
-    removeAt(Size-1);
-}
+        //Удаление элемента с конца
+        void pop() {
+            Node<T> *temp = head;
+            head = head->next;
+            delete temp;
+            len--;
+        };
 
-template<typename T>
-void LinkedList<T>::clear(){
-    while (Size != 0){
-        pop_front();
-    }
-}
+        int getLenght() {
+            return len;
+        }
 
-template<typename T>
-void LinkedList<T>::insert(T data, int index){
-    if (index == 0){
-        push_front(data);
-    }
-    else{
-        Node<T> *prev = this->head;
+        //Вывод элементов
+        void print() {
+            Node<T>* newHead = this->head;
+            int i = 0;
+            while(newHead) {
+                cout << i << ": " << newHead->data << endl;
+                newHead = newHead->next;
+                i++;
+            }
+        }
 
-        for (int i = 0; i<index-1; i++)
-            prev = prev->pointNext;
-        Node<T> *newNode = new Node<T>(data, prev->pointNext);
-        prev->pointNext = newNode;
-        Size++;
-    }
-}
+        // Получение значения по индексу
+        Node<T>* operator[](const int index) {
+            Node<T>* head = this->head;
+            int counter = 0;
+            while (head != nullptr) {
+                if (counter == index) {
+                    return head;
+                }
+            head = head->next;
+            counter++;
+            }
+        }
 
-template<typename T>
-void LinkedList<T>::removeAt(int index){
-    if (index == 0){
-        pop_front();
-    }
-    else{
-        Node<T> *prev = this->head;
-        for (int i = 0; i<index-1; i++)
-            prev = prev->pointNext;
-        Node<T> *toDel = prev->pointNext;
-        prev->pointNext = toDel->pointNext;
-        delete toDel;
-        Size--;
-    }
-}
-
-template<typename T>
-void LinkedList<T>::duplicateDelete(){
-    if (head == nullptr) return;
-
-    Node<T> *current = this->head;
-    int i = 0;
-    //for (int i = 0; i < getSize(); i++){
-	while (current != nullptr) {
-		// Удаляем все следующие узлы с таким же значением
-		Node<T> *runner = current;
-		while (runner->pointNext != nullptr) {
-			if (runner->pointNext->data == current->data) {
-				removeAt(i);
-                //runner->pointNext = runner->pointNext->pointNext;
-			}
+        //Удаление элемента из списка
+        void removeAt(int index){
+            if (index == 0){
+                pop();
+            }
             else{
-                runner = runner->pointNext;
-			}
-		}
-		current = current->pointNext;
-        i++;
-	}
+                Node<T> *prev = this->head;
+                for (int i = 0; i<index-1; i++)
+                    prev = prev->next;
+                Node<T> *toDel = prev->next;
+                prev->next = toDel->next;
+                delete toDel;
+                len--;
+            }
 }
+        // №2
+        // Удаление дубликатов
+        void duplicateDelete() {
+            for (int i = 0; i < len; i++) {
+                int count = 0;
+                T pointNum = operator[](i)->data;
+                for (int j = i; j < len; j++) {
+                    T num = operator[](j)->data;
+                    if (pointNum == num) {
+                        count++;
+                    }
+                }
+                if (count > 1) {
+                    removeAt(i);
+                    i--;
+                }
+            }
+        }
 
-int main(){
-    LinkedList<int> list;
-    list.push_back(5);
-    list.push_back(10);
-    list.push_back(20);
-    list.push_front(15);
-    list.push_front(20);
+        // №3
+        //Поиск элемента с конца
+        T searchBack(int index) {
+            int i = len - index;
+            if (i < 0) {
+                cout << "Значение не найдено";
+                return 0;
+            }
+            else {
+                return operator[](i)->data;
+            }
+        }
+};
 
-    cout << list.getSize() << endl;
-
-    for (int i = 0; i<list.getSize(); i++){
-        cout << &list[i] << ' ';
-    }
+int main() {
+    LinkedList<int>* list = new LinkedList<int>;
+    list->push(5);
+    list->push(2);
+    list->push(1);
+    list->push(3);
+    list->push(2);
+    list->push(7);
+    list->push(9);
+    list->push(5);
+    list->push(9);
+    list->push(5);
+    list->print();
+    // 2
+    cout << endl << "Удаляем дубликаты";
+    list->duplicateDelete();
     cout << endl;
-    //list.pop_front();
-    list.duplicateDelete();
-    cout << list.getSize() << &list.operator[](0) << endl;
-
-    for (int i = 0; i<list.getSize(); i++){
-        cout << &list[i] << ' ';
-    }
-
+    list->print();
+    // 3
+    cout << "Второй элемент с конца: " << list->searchBack(2) << endl;
+    cout << "Пятый элемент с конца: " << list->searchBack(5) << endl;
     return 0;
 }
+
+
+
