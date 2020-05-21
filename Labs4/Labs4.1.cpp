@@ -155,7 +155,6 @@ class MatrixXnX{
     }
 
     void fillRandomElements(const int minVal, const int maxVal){
-        cout << endl << "new matrix" << endl;
         srand(time(NULL));
         for (int i = 0; i<p; i++){
             for (int j = 0; j<p; j++){
@@ -238,28 +237,31 @@ int main(){
     Matrix3x3 m;
     m.columns;
     m.rows;
-
+    cout << "1.1. Работа со статической памятью:" << endl;
     m.fillRandomElements(m.minVal, m.maxVal);
-    cout << m.sumPrincipalDiag();
-    cout << m.sumSecondaryDiag();
-    cout << m.productPrincipalDiag();
-    cout << m.productSecondaryDiag();
-    cout << m.sumRow(2);
-    cout << m.minColumn(1);
-    cout << m.maxColumn(0);
+    cout << endl;
+    cout << "Cумма элементов главной диагонали: " << m.sumPrincipalDiag() << endl;
+    cout << "Сумма элементов побочной диагонали: " << m.sumSecondaryDiag() << endl;
+    cout << "Произведение элементов главной диагонали: " << m.productPrincipalDiag() << endl;
+    cout << "Произведение элементов побочной диагонали: " << m.productSecondaryDiag() << endl;
+    cout << "Cумма элементов в третьей строке: "<< m.sumRow(2) << endl;
+    cout << "Минимальный элемент во втором столбце: " << m.minColumn(1) << endl;
+    cout << "Максимальный элемент в превом столбце" << m.maxColumn(0) << endl;
 
     //  1.2
     MatrixXnX n(6);
     n.maxVal;
     n.minVal;
+    cout << "1.2. Работа со динамической памятью: " << endl;
     n.fillRandomElements(n.minVal, n.maxVal);
-    cout << n.sumPrincipalDiag();
-    cout << n.sumSecondaryDiag();
-    cout << n.productPrincipalDiag();
-    cout << n.productSecondaryDiag();
-    cout << n.sumRow(2);
-    cout << n.minColumn(1);
-    cout << n.maxColumn(0);
+    cout << endl;
+    cout << "Cумма элементов главной диагонали: " << n.sumPrincipalDiag() << endl;
+    cout << "Сумма элементов побочной диагонали: " << n.sumSecondaryDiag() << endl;
+    cout << "Произведение элементов главной диагонали: " << n.productPrincipalDiag() << endl;
+    cout << "Произведение элементов побочной диагонали: " << n.productSecondaryDiag() << endl;
+    cout << "Cумма элементов в третьей строке: " << n.sumRow(2) << endl;
+    cout << "Минимальный элемент во втором столбце: " << n.minColumn(1) << endl;
+    cout << "Максимальный элемент в превом столбце" << n.maxColumn(0) << endl;
 
     return 0;
 }
