@@ -169,6 +169,7 @@ int main() {
     tree->Insert(8);
     tree->Insert(3);
 
-    cout << endl << tree->Search(1) << endl;
+    cout << endl << "Узел со значением 1 имеет указатель: " << tree->Search(1) << endl;
+    cout << endl << "Узел со значением 6 имеет указатель: " << tree->Search(6) << endl;
     return 0;
 }
