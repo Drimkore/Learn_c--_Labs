@@ -2,10 +2,9 @@
 
 using namespace std;
 
-ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
-
 class MatrixBase {
     protected:
+        MatrixBase() = delete;
         MatrixBase(unsigned int iSize);
 
     private:
@@ -33,14 +32,13 @@ class MatrixBase {
         };
 
         // Сложение матрицы с матрицей iAdd
-        void operator+=(MatrixBase iAdd) {
+        void operator+=(MatrixBase* iAdd) {
             for (int i = 0; i < m_size; i++) {
                 for (int j = 0; j < m_size; j++) {
-                    matrix[i][j] += iAdd.element(i,j);
+                    matrix[i][j] += iAdd->matrix[i][j];
                 }
             }
         };
-
 };
 
 ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
@@ -64,7 +62,7 @@ class Matrix2D : public MatrixBase {
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
-        };
+        }
 
         virtual int& elementLink(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
@@ -90,7 +88,7 @@ class Matrix3D : public MatrixBase {
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
-        };
+        }
 
         virtual int& elementLink(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
