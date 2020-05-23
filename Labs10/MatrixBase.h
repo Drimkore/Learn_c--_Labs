@@ -35,13 +35,13 @@ class MatrixBase {
         void operator+=(MatrixBase* iAdd) {
             for (int i = 0; i < m_size; i++) {
                 for (int j = 0; j < m_size; j++) {
-                    matrix[i][j] += iAdd->matrix[i][j];
+                    /*this->elementLink(i, j)*/ matrix[i][j] += iAdd->element(i, j);
                 }
             }
         };
 };
 
-ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
+ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
 
 class Matrix2D : public MatrixBase {
     private:
@@ -49,10 +49,10 @@ class Matrix2D : public MatrixBase {
         int** matrix;
 
     public:
-        Matrix2D(unsigned int iSize):MatrixBase(iSize) {
+        Matrix2D():MatrixBase(m_size) {
             int num = 1;
-            for (int i = 0; i<iSize; i++) {
-                for (int j = 0; j<iSize; j++) {
+            for (int i = 0; i<m_size; i++) {
+                for (int j = 0; j<m_size; j++) {
                     matrix[i][j] = num;
                     num++;
                 }
@@ -75,10 +75,11 @@ class Matrix3D : public MatrixBase {
         int** matrix;
 
     public:
-        Matrix3D(unsigned int iSize):MatrixBase(iSize) {
+        //Matrix3D():MatrixBase(3) {};
+        Matrix3D():MatrixBase(m_size) {
             int num = 1;
-            for (int i = 0; i<iSize; i++) {
-                for (int j = 0; j<iSize; j++) {
+            for (int i = 0; i<m_size; i++) {
+                for (int j = 0; j<m_size; j++) {
                     matrix[i][j] = num;
                     num++;
                 }

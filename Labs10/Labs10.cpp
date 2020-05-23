@@ -40,8 +40,6 @@
 
 using namespace std;
 
-
-
 int main()
 {
    Matrix2D m2a, m2b;
