@@ -9,18 +9,16 @@
 using namespace std;
 
 // Реализуем связный список
-template<typename T>
 class Node {
     public:
-        T data;
+        int data;
         Node* next;
 };
 
-template<typename T>
 class LinkedList {
     public:
         int len;
-        Node<T>* head;
+        Node* head;
 
         LinkedList() {
             len = 0;
@@ -29,32 +27,17 @@ class LinkedList {
         ~LinkedList();
 
         //Добавление значения в список (в начало)
-        void push(T data) {
-            Node<T>* node = new Node<T>;
+        void push(int data) {
+            Node* node = new Node;
             node->data = data;
             node->next = head;
             head = node;
             len++;
         }
 
-        //Добавление  значения в список (в конец)
-        void push_back(T data){
-            if (head == nullptr) {
-                head = new Node<T>(data);
-            }
-            else {
-                Node<T>* current = head;
-                while (current->next != nullptr) {
-                    current = current->next;
-                }
-                current->next = new Node<T>(data);
-            }
-            len++;
-        }
-
         //Удаление элемента с конца
         void pop() {
-            Node<T> *temp = head;
+            Node* temp = head;
             head = head->next;
             delete temp;
             len--;
@@ -66,7 +49,7 @@ class LinkedList {
 
         //Вывод элементов
         void print() {
-            Node<T>* newHead = this->head;
+            Node* newHead = this->head;
             int i = 0;
             while(newHead) {
                 cout << i << ": " << newHead->data << endl;
@@ -76,8 +59,8 @@ class LinkedList {
         }
 
         // Получение значения по индексу
-        Node<T>* operator[](const int index) {
-            Node<T>* head = this->head;
+        Node* operator[](const int index) {
+            Node* head = this->head;
             int counter = 0;
             while (head != nullptr) {
                 if (counter == index) {
@@ -94,10 +77,10 @@ class LinkedList {
                 pop();
             }
             else{
-                Node<T> *prev = this->head;
+                Node *prev = this->head;
                 for (int i = 0; i<index-1; i++)
                     prev = prev->next;
-                Node<T> *toDel = prev->next;
+                Node *toDel = prev->next;
                 prev->next = toDel->next;
                 delete toDel;
                 len--;
@@ -108,9 +91,9 @@ class LinkedList {
         void duplicateDelete() {
             for (int i = 0; i < len; i++) {
                 int count = 0;
-                T pointNum = operator[](i)->data;
+                int pointNum = operator[](i)->data;
                 for (int j = i; j < len; j++) {
-                    T num = operator[](j)->data;
+                    int num = operator[](j)->data;
                     if (pointNum == num) {
                         count++;
                     }
@@ -124,7 +107,7 @@ class LinkedList {
 
         // №3
         //Поиск элемента с конца
-        T searchBack(int index) {
+        int searchBack(int index) {
             int i = len - index;
             if (i < 0) {
                 cout << "Значение не найдено";
@@ -137,7 +120,7 @@ class LinkedList {
 };
 
 int main() {
-    LinkedList<int>* list = new LinkedList<int>;
+    LinkedList* list = new LinkedList;
     list->push(5);
     list->push(2);
     list->push(1);
@@ -148,6 +131,7 @@ int main() {
     list->push(5);
     list->push(9);
     list->push(5);
+    list->push(4);
     list->print();
     // 2
     cout << endl << "Удаляем дубликаты";
