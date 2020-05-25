@@ -5,10 +5,16 @@ using namespace std;
 class MatrixBase {
     protected:
         MatrixBase() = delete;
-        MatrixBase(unsigned int iSize);
+        MatrixBase(unsigned int iSize) {
+            for (int i = 0; i<iSize; i++) {
+                for (int j = 0; j<iSize; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        };
 
     private:
-        const unsigned int m_size;
+        unsigned int m_size;
         int** matrix;
 
     public:
@@ -17,10 +23,14 @@ class MatrixBase {
         }
 
         // Возвращает элемент матрицы
-        virtual int element(unsigned int i, unsigned int j) const = 0;
+        virtual int element(unsigned int i, unsigned int j) const {
+            return matrix[i][j];
+        };
 
         // Возвращает ссылку на элемент матрицы
-        virtual int& elementLink(unsigned int i, unsigned int j) const = 0;
+        virtual int& element(unsigned int i, unsigned int j) {
+            return matrix[i][j];
+        };
 
         // Умножение всех элементов на iMult
         void operator*=(int iMult) {
@@ -39,9 +49,11 @@ class MatrixBase {
                 }
             }
         };
+
+        friend ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
 };
 
-ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
+ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
 
 class Matrix2D : public MatrixBase {
     private:
@@ -49,24 +61,17 @@ class Matrix2D : public MatrixBase {
         int** matrix;
 
     public:
-        Matrix2D():MatrixBase(m_size) {
-            int num = 1;
-            for (int i = 0; i<m_size; i++) {
-                for (int j = 0; j<m_size; j++) {
-                    matrix[i][j] = num;
-                    num++;
-                }
-            }
-        }
+        Matrix2D():MatrixBase(m_size) {}
         ~Matrix2D();
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
         }
 
-        virtual int& elementLink(unsigned int i, unsigned int j) const override {
+        virtual int& element(unsigned int i, unsigned int j) override {
             return matrix[i][j];
         }
+
 };
 
 class Matrix3D : public MatrixBase {
@@ -75,23 +80,14 @@ class Matrix3D : public MatrixBase {
         int** matrix;
 
     public:
-        //Matrix3D():MatrixBase(3) {};
-        Matrix3D():MatrixBase(m_size) {
-            int num = 1;
-            for (int i = 0; i<m_size; i++) {
-                for (int j = 0; j<m_size; j++) {
-                    matrix[i][j] = num;
-                    num++;
-                }
-            }
-        }
+        Matrix3D():MatrixBase(m_size) {}
         ~Matrix3D();
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
         }
 
-        virtual int& elementLink(unsigned int i, unsigned int j) const override {
+        virtual int& element(unsigned int i, unsigned int j) override {
             return matrix[i][j];
         }
 };
