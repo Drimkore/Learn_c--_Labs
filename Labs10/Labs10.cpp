@@ -40,30 +40,32 @@
 
 using namespace std;
 
-ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix) {
+ostream& operator<<(ostream& stream, const MatrixBase& iMatrix) {
    for (int i = 0; i < iMatrix.m_size; i++) {
       for (int j = 0; j < iMatrix.m_size; j++) {
-         stream << iMatrix.element(i, j);
+         stream << iMatrix.element(i, j) << " ";
+         stream << endl;
       }
    }
    return stream;
 }
 
-void create(MatrixBase matrix, int size) {
+void create(MatrixBase matrix) {
    int num = 1;
-   for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+   for (int i = 0; i < matrix.size(); i++) {
+      for (int j = 0; j < matrix.size(); j++) {
          num++;
          matrix.element(i, j) = matrix.element(i, j);
       }
    }
 }
 
-void print(MatrixBase matrix, int size) {
-   for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-         cout << matrix.element(i, j) << endl;
+void print(MatrixBase matrix) {
+   for (int i = 0; i < matrix.size(); i++) {
+      for (int j = 0; j < matrix.size(); j++) {
+         cout << matrix.element(i, j) << " ";
       }
+      cout << endl;
    }
 }
 
@@ -72,14 +74,21 @@ int main()
    Matrix2D m2a, m2b;
    Matrix3D m3a, m3b;
 
-
    //m2a->operator*=(2);
    //m2b->operator+=(m2a);
 
+   cout << "HELLO?????" << endl;
 
+   create(m2a);
+   create(m2b);
+   create(m3a);
+   create(m3b);
 
-   cout << "HELLO?????";
-   print(m2a, 4);
+   print(m2a);
+   print(m2b);
+   print(m3a);
+   print(m3b);
+
 
    cout << m2a << endl;
    cout << m2b << endl;

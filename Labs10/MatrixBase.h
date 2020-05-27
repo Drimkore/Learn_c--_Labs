@@ -5,10 +5,12 @@ using namespace std;
 class MatrixBase {
     protected:
         MatrixBase() = delete;
-        MatrixBase(unsigned int iSize) {
+        MatrixBase(unsigned int iSize):m_size(iSize) {
+            matrix = new int* [iSize];
             for (int i = 0; i<iSize; i++) {
+                matrix[i] = new int [m_size];
                 for (int j = 0; j<iSize; j++) {
-                    matrix[i][j] = 0;
+                    this->element(i, j) = 0;
                 }
             }
         };
@@ -18,6 +20,7 @@ class MatrixBase {
         int** matrix;
 
     public:
+        // Возвращает размер матрицы
         unsigned const int size() {
             return m_size;
         }
@@ -50,10 +53,10 @@ class MatrixBase {
             }
         };
 
-        friend ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
+        friend ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
 };
 
-ofstream& operator<<(ofstream& stream, const MatrixBase& iMatrix);
+ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
 
 class Matrix2D : public MatrixBase {
     private:
@@ -61,8 +64,8 @@ class Matrix2D : public MatrixBase {
         int** matrix;
 
     public:
-        Matrix2D():MatrixBase(m_size) {}
-        ~Matrix2D();
+        Matrix2D():MatrixBase(2) {}
+        ~Matrix2D() {};
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
@@ -80,8 +83,8 @@ class Matrix3D : public MatrixBase {
         int** matrix;
 
     public:
-        Matrix3D():MatrixBase(m_size) {}
-        ~Matrix3D();
+        Matrix3D():MatrixBase(3) {}
+        ~Matrix3D() {};
 
         virtual int element(unsigned int i, unsigned int j) const override {
             return matrix[i][j];
