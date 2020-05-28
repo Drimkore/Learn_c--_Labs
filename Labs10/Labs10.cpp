@@ -43,9 +43,9 @@ using namespace std;
 ostream& operator<<(ostream& stream, const MatrixBase& iMatrix) {
    for (int i = 0; i < iMatrix.m_size; i++) {
       for (int j = 0; j < iMatrix.m_size; j++) {
-         stream << iMatrix.element(i, j) << " ";
-         stream << endl;
+         stream << iMatrix.matrix[i][j] << " ";
       }
+      stream << endl;
    }
    return stream;
 }
@@ -54,18 +54,9 @@ void create(MatrixBase matrix) {
    int num = 1;
    for (int i = 0; i < matrix.size(); i++) {
       for (int j = 0; j < matrix.size(); j++) {
+         matrix.element(i, j) = num;
          num++;
-         matrix.element(i, j) = matrix.element(i, j);
       }
-   }
-}
-
-void print(MatrixBase matrix) {
-   for (int i = 0; i < matrix.size(); i++) {
-      for (int j = 0; j < matrix.size(); j++) {
-         cout << matrix.element(i, j) << " ";
-      }
-      cout << endl;
    }
 }
 
@@ -74,26 +65,35 @@ int main()
    Matrix2D m2a, m2b;
    Matrix3D m3a, m3b;
 
-   //m2a->operator*=(2);
-   //m2b->operator+=(m2a);
-
-   cout << "HELLO?????" << endl;
-
    create(m2a);
    create(m2b);
    create(m3a);
    create(m3b);
-
-   print(m2a);
-   print(m2b);
-   print(m3a);
-   print(m3b);
-
-
+   cout << "Матрицы после заполнения значениями" << endl;
+   cout << "Матрица m2a" << endl;
    cout << m2a << endl;
+   cout << "Матрица m2b" << endl;
    cout << m2b << endl;
-
+   cout << "Матрица m3a" << endl;
    cout << m3a << endl;
+   cout << "Матрица m3b" << endl;
+   cout << m3b << endl;
+
+   // Умножение матриц на число
+   m2a *= 2;
+   m3a *= 5;
+   // Сложение матриц
+   m2b += m2a;
+   m3b += m3b;
+
+   cout << "Матрицы после проведения операций сложения  и умножения" << endl;
+   cout << "Было произведено умножения на 2" << endl;
+   cout << m2a << endl;
+   cout << "Сложили матрицу m2b с матрицей m2a после умножения m2a на 2" << endl;
+   cout << m2b << endl;
+   cout << "Матрица m3a была умножена на 5" << endl;
+   cout << m3a << endl;
+   cout << "Результат сложения двух матриц m3b" << endl;
    cout << m3b << endl;
 
    return 0;

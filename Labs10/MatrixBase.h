@@ -45,10 +45,10 @@ class MatrixBase {
         };
 
         // Сложение матрицы с матрицей iAdd
-        void operator+=(MatrixBase* iAdd) {
+        void operator+=(MatrixBase &iAdd) {
             for (int i = 0; i < m_size; i++) {
                 for (int j = 0; j < m_size; j++) {
-                    /*this->elementLink(i, j)*/ matrix[i][j] += iAdd->element(i, j);
+                    matrix[i][j] += iAdd.element(i, j);
                 }
             }
         };
@@ -66,15 +66,6 @@ class Matrix2D : public MatrixBase {
     public:
         Matrix2D():MatrixBase(2) {}
         ~Matrix2D() {};
-
-        virtual int element(unsigned int i, unsigned int j) const override {
-            return matrix[i][j];
-        }
-
-        virtual int& element(unsigned int i, unsigned int j) override {
-            return matrix[i][j];
-        }
-
 };
 
 class Matrix3D : public MatrixBase {
@@ -85,12 +76,4 @@ class Matrix3D : public MatrixBase {
     public:
         Matrix3D():MatrixBase(3) {}
         ~Matrix3D() {};
-
-        virtual int element(unsigned int i, unsigned int j) const override {
-            return matrix[i][j];
-        }
-
-        virtual int& element(unsigned int i, unsigned int j) override {
-            return matrix[i][j];
-        }
 };
