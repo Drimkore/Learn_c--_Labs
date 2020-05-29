@@ -8,30 +8,29 @@
 
 using namespace std;
 
-template<typename T>
 class  TreeNode
 {
     private:
-    T value;
+    int value;
     TreeNode* leftNode;
     TreeNode* rightNode;
 
     public:
     TreeNode() {
-        value = T();
+        value = int();
         leftNode = nullptr;
         rightNode = nullptr;
     }
 
-    T getNodeValue() {
+    int getNodeValue() {
         return value;
     }
 
-    TreeNode<T>* getLeftNode() {
+    TreeNode* getLeftNode() {
         return leftNode;
     }
 
-    TreeNode<T>* getRightNode() {
+    TreeNode* getRightNode() {
         return rightNode;
     }
 
@@ -39,44 +38,43 @@ class  TreeNode
         value = num;
     }
 
-    T getLeftNodeValue() {
+    int getLeftNodeValue() {
         return leftNode->value;
     }
 
-    void setLeftNode(TreeNode<T>* node) {
+    void setLeftNode(TreeNode* node) {
         leftNode = node;
     }
 
-    void setLeftNodeValue(T value) {
+    void setLeftNodeValue(int value) {
         leftNode->value = value;
     }
 
-    T getRightNodeValue() {
+    int getRightNodeValue() {
         return rightNode->value;
     }
 
-    void setRightNode(TreeNode<T>* node) {
+    void setRightNode(TreeNode* node) {
         rightNode = node;
     }
 
-    void setRightNodeValue(T value) {
+    void setRightNodeValue(int value) {
         rightNode->value = value;
     }
 };
 
-template<typename T>
 class BinaryTree{
     private:
-    TreeNode<T>* root;
+    TreeNode* root;
     BinaryTree* tree;
 
-    void Insert(int value, TreeNode<T> *node) {
+    void Insert(int value, TreeNode* node) {
         if (node->getNodeValue() < value) {
             if (node->getRightNode() != nullptr) {
                 Insert(value, node->getRightNode());
             }
             else {
-                TreeNode<T>* newNode = new TreeNode<T>;
+                TreeNode* newNode = new TreeNode;
                 node->setRightNode(newNode);
                 node->setRightNodeValue(value);
             }
@@ -86,14 +84,14 @@ class BinaryTree{
                 Insert(value, node->getLeftNode());
             }
             else {
-                TreeNode<T>* newNode = new TreeNode<T>;
+                TreeNode* newNode = new TreeNode;
                 node->setLeftNode(newNode);
                 node->setLeftNodeValue(value);
             }
         }
     }
 
-    TreeNode<T>* Search(int value, TreeNode<T> *node) {
+    TreeNode* Search(int value, TreeNode *node) {
         if (node != nullptr){
             if (node->getNodeValue() > value) {
                 node = node->getLeftNode();
@@ -131,13 +129,13 @@ class BinaryTree{
             Insert(value, root);
         }
         else {
-            TreeNode<T>* newNode = new TreeNode<T>;
+            TreeNode* newNode = new TreeNode;
             newNode->setNodeValue(value);
             root = newNode;
         }
     }
 
-    TreeNode<T>* Search(int value) {
+    TreeNode* Search(int value) {
         return Search(value, root);
     }
     /*
@@ -159,7 +157,7 @@ class BinaryTree{
 
 main(){
     int array[8]  = {1,4,6,8,14,15,26,47};
-    BinaryTree<int>* tree = new BinaryTree<int>;
+    BinaryTree* tree = new BinaryTree;
     tree->CreateMinimalBST(array, 0, 7);
     return 0;
 }
