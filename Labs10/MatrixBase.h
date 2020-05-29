@@ -36,22 +36,10 @@ class MatrixBase {
         };
 
         // Умножение всех элементов на iMult
-        void operator*=(int iMult) {
-            for (int i = 0; i < m_size; i++) {
-                for (int j = 0; j < m_size; j++) {
-                    matrix[i][j] *= iMult;
-                }
-            }
-        };
+        void operator*=(int iMult);
 
         // Сложение матрицы с матрицей iAdd
-        void operator+=(MatrixBase &iAdd) {
-            for (int i = 0; i < m_size; i++) {
-                for (int j = 0; j < m_size; j++) {
-                    matrix[i][j] += iAdd.element(i, j);
-                }
-            }
-        };
+        void operator+=(MatrixBase &iAdd);
 
         friend ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
 };

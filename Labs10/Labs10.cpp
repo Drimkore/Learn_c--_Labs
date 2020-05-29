@@ -50,6 +50,22 @@ ostream& operator<<(ostream& stream, const MatrixBase& iMatrix) {
    return stream;
 }
 
+void MatrixBase::operator*=(int iMult) {
+   for (int i = 0; i < m_size; i++) {
+      for (int j = 0; j < m_size; j++) {
+         matrix[i][j] *= iMult;
+      }
+   }
+}
+
+void MatrixBase::operator+=(MatrixBase &iAdd) {
+   for (int i = 0; i < m_size; i++) {
+      for (int j = 0; j < m_size; j++) {
+         matrix[i][j] += iAdd.element(i, j);
+      }
+   }
+}
+
 void create(MatrixBase matrix) {
    int num = 1;
    for (int i = 0; i < matrix.size(); i++) {
