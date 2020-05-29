@@ -48,9 +48,9 @@
     *  - Определить public метод isTerminal, проверяющий является ли вершина терминальной.
     *  - Определить private метод childQty, определяющий возможное количество потомков на данном уровне дерева.
     *  - Определить public метод addChild добавления нового потомка. Проверять, что потомков не может быть на данном
-    * уровне дерева больше, чем положено, в случае попытки добавления большего числа потомков падать с cassert.
+    *       уровне дерева больше, чем положено, в случае попытки добавления большего числа потомков падать с cassert.
     *  - Перегрузить public оператор[], принимающий на вход целое число и возвращающий ссылку на соответствующего потомка,
-    * если он существует. Если нет - падать с cassert.
+    *       если он существует. Если нет - падать с cassert.
     *  - определить public метод childCount, возвращающий текущее количество потомков у данной вершины.
     *  - определить public метод value, возвращающий const ссылку на состояние поля PlayField в данной вершине дерева.
     *
@@ -68,23 +68,18 @@
 
 #include <iostream>
 #include <vector> ///нужно для работы с std::vector
+#include "PlayField.h"
+#include "TreeNode.h"
 
 using namespace std;
 
-class PlayField{
-
-};
-
-class TreeNode{
-
-};
 
 int main()
 {
-    cout << "Hello World!" << endl;
+   cout << "Hello World!" << endl;
 
-    PlayField pf0;
+   PlayField pf0;
     //TreeNode node0(PlayField());///Так нельзя, не понятно пока, почему
-    TreeNode node0(pf0);
-    BuildSubTree(node0);
-    WalkTree(node0);
+   TreeNode node0(pf0);
+   BuildSubTree(node0);
+   WalkTree(node0);
