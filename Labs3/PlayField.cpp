@@ -17,3 +17,8 @@ PlayField::FieldStatus PlayField::checkFieldStatus() const {
     FieldStatus status = fsNormal;
     return status;
 }
+
+PlayField::operator[](CellPos cellPos) {
+    CellStatus status = csEmpty;
+    return status;
+}

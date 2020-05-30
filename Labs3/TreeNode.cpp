@@ -20,8 +20,8 @@ void TreeNode::addChild(TreeNode* child) {
     this->childNode.push_back(child);*/
 }
 
-TreeNode& TreeNode::operator[](int pos) const {
-
+TreeNode& TreeNode::operator[](int pos) {
+    return childNode[pos];
 }
 
 int TreeNode::childCount() {
@@ -32,7 +32,7 @@ PlayField& TreeNode::value() const {
     return field;
 }
 
-int TreeNode::cildQty() const {
+int TreeNode::childQty() {
     if (this->node) {
         return this->node->childQty() - 1;
     }
