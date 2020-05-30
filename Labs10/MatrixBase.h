@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 using namespace std;
@@ -13,10 +14,10 @@ class MatrixBase {
                     this->element(i, j) = 0;
                 }
             }
-        };
+        }
 
     private:
-        unsigned int m_size;
+        const unsigned int m_size;
         int** matrix;
 
     public:
@@ -28,12 +29,12 @@ class MatrixBase {
         // Возвращает элемент матрицы
         virtual int element(unsigned int i, unsigned int j) const {
             return matrix[i][j];
-        };
+        }
 
         // Возвращает ссылку на элемент матрицы
         virtual int& element(unsigned int i, unsigned int j) {
             return matrix[i][j];
-        };
+        }
 
         // Умножение всех элементов на iMult
         void operator*=(int iMult);
@@ -46,22 +47,6 @@ class MatrixBase {
 
 ostream& operator<<(ostream& stream, const MatrixBase& iMatrix);
 
-class Matrix2D : public MatrixBase {
-    private:
-        const unsigned int m_size = 2;
-        int** matrix;
 
-    public:
-        Matrix2D():MatrixBase(2) {}
-        ~Matrix2D() {};
-};
 
-class Matrix3D : public MatrixBase {
-    private:
-        const unsigned int m_size = 3;
-        int** matrix;
 
-    public:
-        Matrix3D():MatrixBase(3) {}
-        ~Matrix3D() {};
-};
