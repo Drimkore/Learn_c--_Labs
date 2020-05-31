@@ -18,7 +18,8 @@
 
 
 #include <iostream>
-#include "header.h"
+#include "TreeNode.h"
+#include "BinaryTree.h"
 
 using namespace std;
 

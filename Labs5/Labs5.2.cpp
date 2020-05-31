@@ -5,11 +5,12 @@
 */
 
 #include <iostream>
-#include "header.h"
+#include "TreeNode.h"
+#include "BinaryTree.h"
 
 using namespace std;
 
-main(){
+int main(){
     int array[8]  = {1,4,6,8,14,15,26,47};
     BinaryTree* tree = new BinaryTree;
     tree->CreateMinimalBST(array, 0, 7);
