@@ -5,7 +5,7 @@ using namespace std;
 
 class MatrixBase {
 protected:
-    //MatrixBase() = delete;
+    MatrixBase() = delete;
     MatrixBase(unsigned int iSize) :m_size(iSize) {}
 
 private:
