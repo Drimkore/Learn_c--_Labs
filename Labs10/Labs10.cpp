@@ -41,25 +41,11 @@
 
 using namespace std;
 
-void create(MatrixBase matrix) {
-    int num = 1;
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix.size(); j++) {
-            matrix.element(i, j) = num;
-            num++;
-        }
-    }
-}
-
 int main()
 {
     Matrix2D m2a, m2b;
     Matrix3D m3a, m3b;
 
-    create(m2a);
-    create(m2b);
-    create(m3a);
-    create(m3b);
     cout << "Матрицы после заполнения значениями" << endl;
     cout << "Матрица m2a" << endl;
     cout << m2a << endl;
@@ -70,10 +56,10 @@ int main()
     cout << "Матрица m3b" << endl;
     cout << m3b << endl;
 
-   // Умножение матриц на число
-   m2a *= 2;
-   m3a *= 5;
-   // Сложение матриц
+    // Умножение матриц на число
+    m2a *= 2;
+    m3a *= 5;
+    // Сложение матриц
     m2b += m2a;
     m3b += m3b;
 
